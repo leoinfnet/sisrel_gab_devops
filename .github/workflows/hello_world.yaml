@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Say Hello
-        run: echo "olá, gh actions - ${{github.repository}} - ${{{github.actor}} - ${{github.ref}} - ${{github.sha}} - ${{github.event_name}}"
+        run: echo "olá, gh actions - ${{github.repository}} - ${{github.actor}} - ${{github.ref}} - ${{github.sha}} - ${{github.event_name}}"
