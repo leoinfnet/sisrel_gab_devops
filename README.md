@@ -36,7 +36,7 @@ on: [push, pull_request]
 
 Status do build:
 
-[https://img.shields.io/github/actions/workflow/status/leoinfnet/sisrel_gab_devops/hello_world.yaml?branch=main&label=build]
+![BUILD](https://img.shields.io/github/actions/workflow/status/leoinfnet/sisrel_gab_devops/hello_world.yaml?branch=main&label=build)
 
 ------------------------------------------------------------
 ## 🧪 Testes e Cobertura
