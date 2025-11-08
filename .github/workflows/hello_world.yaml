@@ -1,8 +1,8 @@
 name: Hello Actions
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   say-hello:
     runs-on: ubuntu-latest
     steps:
       - name: Say Hello
-        run: echo "olá, gh actions"
+        run: echo "olá, gh actions - ${{github.repository}} - ${{{github.actor}} - ${{github.ref}} - ${{github.sha}} - ${{github.event_name}}"
