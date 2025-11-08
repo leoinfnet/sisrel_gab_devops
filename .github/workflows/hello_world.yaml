@@ -4,5 +4,5 @@ jobs:
   say-hello:
     runs-on: ubuntu-latest
     steps:
-      name: Say Hello!
-      run: echo "olá, gh actions"
+      - name: Say Hello
+        run: echo "olá, gh actions"
