@@ -28,7 +28,7 @@ def test_filtrar_por_produto():
     apenas_tenis = filtrar_por_produto(vendas, "Tênis")
     assert len(apenas_tenis) == 2
     assert all(v.produto == "Tênis" for v in apenas_tenis)
-   # assert(False)
+    assert(False)
 
 def test_gerar_vendas_basico():
     qtd = 12

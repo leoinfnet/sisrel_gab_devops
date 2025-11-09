@@ -18,8 +18,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Executar testes
-      run: pytest -v > resultado_teste.txt
+    # - name: Executar testes
+    #   run: pytest -v > resultado_teste.txt
 
 
 
@@ -34,20 +34,44 @@ jobs:
 
 
   # Roda SEMPRE (mesmo se pytest falhar)
-    - name: Pós-teste (sempre)
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: resultad_testes
-        path: resultado_teste.txt
+    # - name: Pós-teste (sempre)
+    #   if: ${{ always() }}
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: resultad_testes
+    #     path: resultado_teste.txt
 
-    # Só roda se todos os steps anteriores passaram
-    - name: Só em sucesso
-      if: ${{ success() }}
-      run: echo "✅ Todos os testes passaram! Workflow segue normalmente."
+    # # Só roda se todos os steps anteriores passaram
+    # - name: Só em sucesso
+    #   if: ${{ success() }}
+    #   run: echo "✅ Todos os testes passaram! Workflow segue normalmente."
 
-    # Só roda se o step de teste falhar
-    - name: Só em falha
-      if: ${{ failure() }}
-      run: echo "❌ Um ou mais testes falharam. Encerrando execução do job."
+    # # Só roda se o step de teste falhar
+    # - name: Só em falha
+    #   if: ${{ failure() }}
+    #   run: echo "❌ Um ou mais testes falharam. Encerrando execução do job."
+
+    - name: Rodar pytest
+      id: pytest
+      continue-on-error: true
+      run: pytest -v > resultado_teste.txt
+    
+
+    - name: Verificar resultado do pytest
+    run: |
+      if [ "${{ steps.pytest.outcome }}" == "failure" ]; then
+        echo "❌ O step 'pytest' falhou, rodando ação de fallback..."
+      else
+        echo "✅ O step 'pytest' passou, continuando normalmente."
+      fi
+    -name: Forçar falha se pytest falhar
+    if: ${{ steps.pytest.outcome == 'failure' }}
+    run: exit 1
+
+     # Sempre roda, pra mostrar comportamento
+    -name: Pós-processamento (sempre)
+    if: ${{ always() }}
+    run: echo "📦 Step sempre executado, independente do resultado."
+
+      
 
