@@ -58,12 +58,12 @@ jobs:
     
 
     - name: Verificar resultado do pytest
-    run: |
-      if [ "${{ steps.pytest.outcome }}" == "failure" ]; then
-        echo "❌ O step 'pytest' falhou, rodando ação de fallback..."
-      else
-        echo "✅ O step 'pytest' passou, continuando normalmente."
-      fi
+      run: |
+        if [ "${{ steps.pytest.outcome }}" == "failure" ]; then
+          echo "❌ O step 'pytest' falhou, rodando ação de fallback..."
+        else
+          echo "✅ O step 'pytest' passou, continuando normalmente."
+        fi
     -name: Forçar falha se pytest falhar
     if: ${{ steps.pytest.outcome == 'failure' }}
     run: exit 1
