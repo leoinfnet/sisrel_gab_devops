@@ -64,14 +64,14 @@ jobs:
         else
           echo "✅ O step 'pytest' passou, continuando normalmente."
         fi
-    -name: Forçar falha se pytest falhar
-    if: ${{ steps.pytest.outcome == 'failure' }}
-    run: exit 1
+    - name: Forçar falha se pytest falhar
+      if: ${{ steps.pytest.outcome == 'failure' }}
+      run: exit 1
 
      # Sempre roda, pra mostrar comportamento
-    -name: Pós-processamento (sempre)
-    if: ${{ always() }}
-    run: echo "📦 Step sempre executado, independente do resultado."
+    - name: Pós-processamento (sempre)
+      if: ${{ always() }}
+      run: echo "📦 Step sempre executado, independente do resultado."
 
       
 
