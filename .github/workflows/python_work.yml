@@ -20,6 +20,34 @@ jobs:
     
     - name: Executar testes
       run: pytest -v > resultado_teste.txt
-    - name: Job Finalizado
-      run: echo "Finalizei"
+
+
+
+    # - name: Job Finalizado
+    #   run: echo "Finalizei"
+
+    #  - name: Upload file
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: status
+    #       path: status.txt
+
+
+  # Roda SEMPRE (mesmo se pytest falhar)
+    - name: Pós-teste (sempre)
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: resultad_testes
+        path: resultado_teste.txt
+
+    # Só roda se todos os steps anteriores passaram
+    - name: Só em sucesso
+      if: ${{ success() }}
+      run: echo "✅ Todos os testes passaram! Workflow segue normalmente."
+
+    # Só roda se o step de teste falhar
+    - name: Só em falha
+      if: ${{ failure() }}
+      run: echo "❌ Um ou mais testes falharam. Encerrando execução do job."
 
