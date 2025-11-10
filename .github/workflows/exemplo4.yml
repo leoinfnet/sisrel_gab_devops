@@ -69,3 +69,13 @@ jobs:
         with:
           name: badge-cobertura
           path: coverage-badge.svg
+
+      - name: Commit e push do badge
+        if: ${{ success() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add coverage-badge.svg
+          git commit -m "Atualiza badge de cobertura: ${{ steps.badge.outputs.percent || '' }}"
+          git push
