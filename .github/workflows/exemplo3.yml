@@ -1,0 +1,23 @@
+name: Exemplo de Output
+
+on: [push, pull_request]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1 - gerar uma saída
+        id: gerar
+        run: |
+          echo "valor_teste=Olá do step 1 👋" >> $GITHUB_OUTPUT
+          echo "numero=$((1 + 1))" >> $GITHUB_OUTPUT
+
+      - name: Step 2 - ler a saída do step anterior
+        run: |
+          echo "Mensagem: ${{ steps.gerar.outputs.valor_teste }}"
+          echo "Número calculado: ${{ steps.gerar.outputs.numero }}"
+
+      - name: Step 3 - usar saída em uma condição
+        if: ${{ steps.gerar.outputs.numero == '2' }}
+        run: echo "✅ A saída do step anterior era 2 — condição atendida!"
