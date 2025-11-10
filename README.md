@@ -46,6 +46,7 @@ Status do build:
 Badge de cobertura (futuro):
 
 https://img.shields.io/badge/coverage-100%25-brightgreen
+![Coverage](./coverage-badge.svg)
 
 ------------------------------------------------------------
 ## 🧩 Próximos Passos
