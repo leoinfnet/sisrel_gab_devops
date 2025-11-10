@@ -1,7 +1,8 @@
 name: CI com badge estático
 
 on: [push, pull_request]
-
+permissions:
+  contents: write  
 jobs:
   tests:
     runs-on: ubuntu-latest
