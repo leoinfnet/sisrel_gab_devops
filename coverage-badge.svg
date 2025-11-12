@@ -4,8 +4,8 @@
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
   <rect rx="3" width="110" height="20" fill="#555"/>
-  <rect rx="3" x="60" width="50" height="20" fill="#orange"/>
-  <path fill="#orange" d="M60 0h4v20h-4z"/>
+  <rect rx="3" x="60" width="50" height="20" fill="##dfb317"/>
+  <path fill="##dfb317" d="M60 0h4v20h-4z"/>
   <rect rx="3" width="110" height="20" fill="url(#a)"/>
   <g fill="#fff" text-anchor="middle"
      font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
