@@ -1,0 +1,77 @@
+name: CI com badge estático via json
+
+on: [push, pull_request]
+permissions:
+  contents: write  
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Rodar testes com cobertura
+        run: pytest -v --cov=sisrel --cov-report=xml:coverage.xml
+      - name: Calcular cobertura e cor
+        id: coverage_data
+        run: |
+          # Extrai o valor da cobertura (0.x) do coverage.xml
+          COVERAGE=$(grep -oPm1 '(?<=line-rate=")[^"]+' coverage.xml)
+          PERCENT=$(python -c "print(int(float('${COVERAGE}')*100))")
+
+          echo "Cobertura calculada: ${PERCENT}%"
+
+          # Define cor (nomes que o Shields entende)
+          if   [ "${PERCENT}" -ge 90 ]; then COLOR="brightgreen";
+          elif [ "${PERCENT}" -ge 75 ]; then COLOR="yellowgreen";
+          elif [ "${PERCENT}" -ge 50 ]; then COLOR="orange";
+          else                             COLOR="red";
+          fi
+
+          echo "Cor calculada: ${COLOR}"
+
+          # Exporta como outputs do step
+          echo "percent=${PERCENT}" >> "$GITHUB_OUTPUT"
+          echo "color=${COLOR}" >> "$GITHUB_OUTPUT"
+
+      - name: Gerar coverage.json (Shields endpoint)
+        run: |
+          PERCENT='${{ steps.coverage_data.outputs.percent }}'
+          COLOR='${{ steps.coverage_data.outputs.color }}'
+
+          echo "Gerando coverage.json com ${PERCENT}% e cor ${COLOR}"
+
+          cat > coverage.json <<EOF
+          {
+            "schemaVersion": 1,
+            "label": "coverage",
+            "message": "${PERCENT}%",
+            "color": "${COLOR}"
+          }
+          EOF
+
+          echo "Conteúdo do coverage.json:"
+          cat coverage.json
+ 
+
+      - name: Commit e push do badge
+        if: ${{ success() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add coverage-badge.svg
+          git add .
+          git commit -m "Atualiza coverage.json (coverage ${{ steps.coverage_data.outputs.percent }}%)" || echo "Nada para commitar"
+          git push
