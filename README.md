@@ -50,6 +50,7 @@ Badge de cobertura (futuro):
 ![Coverage](./coverage-badge.svg)
 
 
+![Coverage](./coverage-simple-badge.svg)
 
 
 ------------------------------------------------------------
