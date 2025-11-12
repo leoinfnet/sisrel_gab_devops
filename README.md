@@ -2,7 +2,7 @@
 
 Projeto didático em Python usado para demonstrar integração contínua (CI) com GitHub Actions.
 
-## Versão atual: $2.0.0
+## 📦 Versão atual: ${VERSION}
 
 ------------------------------------------------------------
 ## 🚀 Objetivos da Aula
