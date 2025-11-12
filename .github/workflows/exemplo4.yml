@@ -34,15 +34,14 @@ jobs:
           echo "Cobertura: ${PERCENT}%"
           
           # Define cor conforme o nível
-          if [ "$PERCENT" -ge 90 ]; then
-            COLOR="#4c1"
-          elif [ "$PERCENT" -ge 75 ]; then
-           COLOR="#97ca00"
-          elif [ "$PERCENT" -ge 50 ]; then
-           COLOR="#dfb317"
-          else
-            COLOR=red
+          if   [ "${PERCENT}" -ge 90 ]; then COLOR="#4c1";      # brightgreen
+          elif [ "${PERCENT}" -ge 75 ]; then COLOR="#97ca00";   # green
+          elif [ "${PERCENT}" -ge 50 ]; then COLOR="#dfb317";   # yellow
+          else                             COLOR="#e05d44";   # red
           fi
+
+          echo "Cor: ${COLOR}%"
+
 
           # Cria badge SVG (formato Shields)
           echo '<svg xmlns="http://www.w3.org/2000/svg" width="110" height="20">
