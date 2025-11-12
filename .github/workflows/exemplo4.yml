@@ -23,8 +23,7 @@ jobs:
 
       - name: Rodar testes com cobertura
         run: pytest -v --cov=sisrel --cov-report=xml:coverage.xml
-
-      # 📊 Extrai o valor numérico da cobertura e cria um badge SVG
+    
       - name: Gerar badge estático de cobertura
         id: badge
         run: |
@@ -36,11 +35,11 @@ jobs:
           
           # Define cor conforme o nível
           if [ "$PERCENT" -ge 90 ]; then
-            COLOR=brightgreen
+            COLOR="#4c1"
           elif [ "$PERCENT" -ge 75 ]; then
-            COLOR=yellowgreen
+           COLOR="#97ca00"
           elif [ "$PERCENT" -ge 50 ]; then
-            COLOR=orange
+           COLOR="#dfb317"
           else
             COLOR=red
           fi
