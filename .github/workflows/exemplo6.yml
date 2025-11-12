@@ -20,7 +20,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Incrementar Versão
-        run: bump2version major
+        run: | 
+           git config user.name "github-actions[bot]"
+           git config user.email "github-actions[bot]@users.noreply.github.com"
+           bump2version major
       
       - name: Rodar testes com cobertura
         run: pytest -v --cov=sisrel --cov-report=xml:coverage.xml
