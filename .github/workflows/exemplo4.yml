@@ -28,8 +28,7 @@ jobs:
       # Exemplo usando uma ação do Marketplace para gerar o badge
         uses: tj-actions/coverage-badge-go@v1
         with:
-           # Caminho para o arquivo de relatório gerado
-        filename: coverage-badge.svg
+          filename: coverage-badge.svg
 
       - name: Publicar badge (sempre)
         if: ${{ always() }}
